@@ -484,7 +484,7 @@ address { font-style: normal; }
   padding: 12px 22px; border-radius: 8px; transition: opacity 0.2s;
 }
 .wa-community-btn:hover { opacity: 0.88; }
-.map-box { }
+.map-box { height: 420px; border-radius: 12px; overflow: hidden; }
 .map-ph {
   height: 420px; background: #e8e0d5; border: 1px solid var(--line);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
