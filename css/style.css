@@ -518,6 +518,69 @@ footer { background: #111; color: rgba(255,255,255,0.65); }
 .back-top.show { display: flex; }
 .back-top:hover { background: var(--orange); }
 
+/* ===== ANIMATIONS ===== */
+/* Scroll-reveal: elements start hidden + shifted, ease into place when .in-view is added by JS */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.in-view { opacity: 1; transform: none; }
+/* Directional variants */
+.reveal.reveal-left  { transform: translateX(-36px); }
+.reveal.reveal-right { transform: translateX(36px); }
+.reveal.reveal-zoom  { transform: scale(0.94); }
+.reveal.reveal-left.in-view,
+.reveal.reveal-right.in-view,
+.reveal.reveal-zoom.in-view { transform: none; }
+/* Stagger children (grid items) via inline --i index set in JS */
+.reveal[style*="--i"] { transition-delay: calc(var(--i) * 90ms); }
+
+/* Hero entrance on load */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes heroFade {
+  from { opacity: 0; transform: scale(1.03); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-text > * { opacity: 0; animation: heroRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero-text .hero-tagline { animation-delay: 0.1s; }
+.hero-text .hero-title   { animation-delay: 0.22s; }
+.hero-text .hero-subtitle{ animation-delay: 0.34s; }
+.hero-text .hero-link    { animation-delay: 0.46s; }
+.hero-image { animation: heroFade 1s ease-out both; animation-delay: 0.2s; }
+
+/* Gentle float on decorative mandalas */
+@keyframes floatY { 0%, 100% { transform: translateY(-50%); } 50% { transform: translateY(-54%); } }
+.mandala { animation: floatY 9s ease-in-out infinite; }
+
+/* Banner heading entrance on inner pages */
+.page-banner h1 { animation: heroRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.page-banner .breadcrumb { animation: heroRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.12s; }
+
+/* Button/link micro-interactions */
+.btn-primary-solid, .btn-outline-orange, .btn-outline-white, .nav-donate, .topbar-btn {
+  transition: transform 0.2s ease, background 0.2s, color 0.2s, opacity 0.2s, box-shadow 0.2s;
+}
+.btn-primary-solid:hover, .nav-donate:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(224,90,0,0.28); }
+.btn-outline-orange:hover, .btn-outline-white:hover { transform: translateY(-2px); }
+
+/* Respect users who prefer reduced motion — disable all of the above */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-text > *, .hero-image, .page-banner h1, .page-banner .breadcrumb { opacity: 1 !important; }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr 1fr; }
