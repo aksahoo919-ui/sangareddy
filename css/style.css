@@ -409,9 +409,19 @@ address { font-style: normal; }
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 200px 200px;
+  grid-auto-rows: 200px;
   gap: 10px;
 }
+.gal-item.wide { grid-column: span 2; }
+.gal-cta {
+  background: var(--orange); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  color: #fff; text-align: center; padding: 20px;
+  transition: background 0.2s;
+}
+.gal-cta:hover { background: var(--orange-light); }
+.gal-cta span { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.5px; }
+.gal-cta small { font-size: 0.78rem; opacity: 0.85; }
 .gal-item { position: relative; overflow: hidden; cursor: pointer; background: #eee; }
 .gal-item.tall { grid-column: span 2; grid-row: span 2; }
 .gal-ph, .gal-photo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; transition: transform 0.4s; }
